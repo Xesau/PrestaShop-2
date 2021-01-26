@@ -996,11 +996,8 @@ class Mollie extends PaymentModule
 
 	public function hookActionAdminOrdersListingFieldsModifier($params)
 	{
-		if (isset($params['select'])) {
-			$params['select'] = rtrim($params['select'], ' ,') . ' ,mol.`transaction_id`';
-		}
-		if (isset($params['join'])) {
-			$params['join'] .= ' LEFT JOIN `' . _DB_PREFIX_ . 'mollie_payments` mol ON mol.`order_reference` = a.`reference`';
+        if (isset($params['select'])) {
+            $params['select'] = rtrim($params['select'], ' ,') . ' ,a.`id_order` as `order_id`';
 		}
 		$params['fields']['order_id'] = [
 			'title' => $this->l('Resend payment link'),
